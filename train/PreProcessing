@@ -1,0 +1,21 @@
+from pyspark.sql import SparkSession
+from pyspark.ml.feature import StringIndexer, OneHotEncoder, VectorAssembler
+from pyspark.ml.classification import LogisticRegression
+from pyspark.ml.evaluation import BinaryClassificationEvaluator
+from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
+from pyspark.ml import Pipeline
+from pyspark.sql import functions as F
+from pyspark.ml.feature import StringIndexer
+from pyspark.sql.functions import col
+
+
+# Create a SparkSession
+spark = SparkSession.builder \
+    .appName("Income Prediction") \
+    .getOrCreate()
+
+# Read the train and test data
+train = spark.read.csv("s3://adhoc-query-data/Leila/check_data/train.tsv", sep="\t", header=True, inferSchema=True)
+test = spark.read.csv("s3://adhoc-query-data/Leila/check_data/test.tsv", sep="\t", header=True, inferSchema=True)
+
+## THIS IS A TEST
